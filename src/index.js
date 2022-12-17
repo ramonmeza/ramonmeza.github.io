@@ -33,7 +33,7 @@ class SentenceBuilder extends React.Component {
         return (
             <div>
                 <a href="https://github.com/ramonmeza">
-                    <img src="profile_pic.jpg" alt="It's a-me" />
+                    <img src="images/profile_pic.jpg" alt="It's a-me" />
                 </a>
                 <p>
                     Ramon is {(this.state.adjective && this.state.adjective.match('^[aieouAIEOU].*')) ? 'an' : 'a'} <span class="adjective">{this.state.adjective}</span> <span class="noun">{this.state.noun}</span>.
