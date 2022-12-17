@@ -1,56 +1,21 @@
-name: Deploy App
+name: Deploy to Github Pages
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: push
 
 jobs:
-  build:
+  deploy:
+    name: Deploying to Github Pages
+
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses:  actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Checkout branch
+        uses: actions/checkout@v2
 
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          **/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Authorizing Github action
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+        uses: oleksiyrudenko/gha-git-credentials@v1
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test -- --coverage --passWithNoTests
-    
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-
-    - name: Build
-      run: npm run build
-    
-    - name: Deploy
-      run: |
-        git config --global user.name $user_name
-        git config --global user.email $user_email
-        git remote set-url origin https://${github_token}@github.com/${repository}
-        npm run deploy
-      env:
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@user.noreply.github.com'
-        github_token: '${{ secrets.DEPLOY_ACCESS_TOKEN }}'
-        repository: ${{ github.repository }}
-
+      - name: Doploy to GitHub Pages
+        uses: amitsingh-007/deploy-to-github-pages@v1.1
