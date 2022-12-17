@@ -1,0 +1,39 @@
+body {
+    filter: drop-shadow(4px 10px 4px #686963AA);
+
+    color: #F1EDEE;
+    font-weight: 600;
+
+    font-size: xxx-large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    vertical-align: middle;
+
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #8AA29E;
+}
+
+.adjective {
+    color: #DB5461;
+    font-style: italic;
+}
+
+.noun {
+    color: #3D5467;
+    font-weight: bolder;
+}
+
+img {
+    border-radius: 50%;
+    width: 35vh;
+    height: 35vh;
+    transition: 0.15s;
+}
+
+img:hover {
+    transform: scale(1.4);
+}
