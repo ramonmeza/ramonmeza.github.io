@@ -19,8 +19,7 @@ const router = createBrowserRouter([{
 }, {
     path: '/test',
     element: <DocumentViewer path='./lore/first_hand_accounts.txt' />,
-    errorElement: <ErrorPage />,
-    styles: './'
+    errorElement: <ErrorPage />
 },])
 
 
