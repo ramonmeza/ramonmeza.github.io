@@ -5,9 +5,10 @@ import {
     RouterProvider,
 } from "react-router-dom"
 import './index.css';
+import './document_viewer.css';
 
 import ErrorPage from "./error_page"
-import ImageRuiner from "./image_ruiner"
+import DocumentViewer from "./document_viewer"
 import SentenceBuilder from "./sentece_builder"
 
 
@@ -17,7 +18,9 @@ const router = createBrowserRouter([{
     errorElement: <ErrorPage />
 }, {
     path: '/test',
-    element: <ImageRuiner />
+    element: <DocumentViewer path='./lore/first_hand_accounts.txt' />,
+    errorElement: <ErrorPage />,
+    styles: './'
 },])
 
 

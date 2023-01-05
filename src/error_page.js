@@ -8,7 +8,7 @@ export default function ErrorPage() {
     return (
         <div>
             <p>
-                <i>{error.statusText || error.message}</i>
+                oops.
             </p>
         </div>
     )

@@ -27,13 +27,13 @@ body {
     font-weight: bolder;
 }
 
-img {
+.profile_pic {
     border-radius: 50%;
     width: 35vh;
     height: 35vh;
     transition: 0.15s;
 }
 
-img:hover {
+.profile_pic:hover {
     transform: scale(1.4);
 }

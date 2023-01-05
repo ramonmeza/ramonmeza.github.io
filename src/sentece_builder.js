@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default class SentenceBuilder extends React.Component {
+
     constructor() {
         super()
         this.state = {
@@ -30,7 +31,7 @@ export default class SentenceBuilder extends React.Component {
         return (
             <div>
                 <a href="https://github.com/ramonmeza">
-                    <img src="images/profile_pic.jpg" alt="It's a-me" />
+                    <img class='profile_pic' src="images/profile_pic.jpg" alt="It's a-me" />
                 </a>
                 <p>
                     Ramon is {(this.state.adjective && this.state.adjective.match('^[aieouAIEOU].*')) ? 'an' : 'a'} <span class="adjective">{this.state.adjective}</span> <span class="noun">{this.state.noun}</span>.
