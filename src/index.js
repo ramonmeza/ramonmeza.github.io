@@ -17,10 +17,13 @@ const router = createHashRouter([{
     element: <SentenceBuilder />,
     errorElement: <ErrorPage />
 }, {
-    path: '/test',
-    element: <DocumentViewer path='./lore/first_hand_accounts.txt' />,
+    path: '/the_nakhovny_incident',
     errorElement: <ErrorPage />
-},])
+}, {
+    path: '/the_nakhovny_incident/first_hand_accounts',
+    element: <DocumentViewer path='./txt/the_nakhovny_incident/first_hand_accounts.txt' />,
+    errorElement: <ErrorPage />
+}])
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
