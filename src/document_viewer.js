@@ -1,32 +1,31 @@
-import { Component } from "react";
+import { useParams } from "react-router-dom";
 
-class DocumentViewer extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            path: props.path,
-            data: null
-        }
-    }
+export default function DocumentViewer() {
+    let { id } = useParams();
+    console.log(id)
 
-    componentDidMount() {
-        fetch(this.state.path)
-            .then((response) => response.text())
-            .then((data) => {
-                this.setState({ data: data })
-            })
-    }
+    let paths = [
+        './txt/the_nakhovny_incident/31_dec_1952_chebodny_official_statement.txt',
+        './txt/the_nakhovny_incident/01_jan_1953_the_peoples_daily.txt',
+        './txt/the_nakhovny_incident/03_jan_1953_first_hand_accounts.txt',
+        './txt/the_nakhovny_incident/07_jan_1953_the_peoples_daily.txt'
+    ]
 
-    render() {
-        return (
-            <div class='dv'>
-                <p>
-                    {this.state.data}
-                </p >
-            </div>
-        )
-    }
+    let path = paths[id]
+    let data = null
+
+    fetch(path)
+        .then((response) => response.text())
+        .then((data) => {
+            data = data
+        })
+
+    return (
+        <div className='dv'>
+            <p>
+                {data}
+            </p >
+        </div>
+    )
 }
-
-export default DocumentViewer

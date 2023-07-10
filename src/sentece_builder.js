@@ -15,7 +15,6 @@ export default class SentenceBuilder extends React.Component {
             .then((response) => response.text())
             .then((data) => {
                 let split_data = data.split("\n")
-                console.log(split_data)
                 this.setState({ noun: split_data[Math.floor(Math.random() * split_data.length)] })
             })
 
