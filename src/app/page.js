@@ -58,20 +58,24 @@ export default function Page() {
     });
 
     return (
-        <div className="container mx-auto">
+        <div>
             <header>
-                <Banner avatar="img/avatar.jpg" alt="A picture of myself" title="Ramon Meza" subtitle="Computer Scientist, Musician, Artist" />
+                <div className="container mx-auto pt-4 px-4 md:px-0">
+                    <Banner avatar="img/avatar.jpg" alt="A picture of myself" title="Ramon Meza" subtitle="Computer Scientist, Musician, Artist" />
+                </div>
             </header>
             <main>
-                <div>
-                    <div className="mb-4 text-3xl font-medium text-gray-700">Repositories</div>
-                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {repoCards}
+                <div className="container mx-auto py-4 px-4 md:px-0">
+                    <div>
+                        <div className="py-4 text-3xl font-medium text-gray-700">Repositories</div>
+                        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            {repoCards}
+                        </div>
                     </div>
                 </div>
             </main>
             <footer>
-                <div>
+                <div className="p-10 bg-gray-950 min-w-full text-center text-gray-100">
                     &copy;2024 Ramon Meza
                 </div>
             </footer>
