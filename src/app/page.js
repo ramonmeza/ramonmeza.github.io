@@ -1,71 +1,49 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { Octokit } from "octokit";
+import { useEffect, useState } from "react";
+import RepoCard from "./components/repoCard";
+import { getReposByUsername } from "./githubApi";
 
-import RepoList from "@/components/repolist";
+export default function Page() {
+    const [repoList, setRepoList] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        async function doWork() {
+            try {
+                const r = await getReposByUsername("ramonmeza");
+                console.log(r.data);
+                setRepoList(r.data);
+                setIsLoading(false);
+            } catch (error) {
+                setError(error);
+                setIsLoading(false);
+            }
+        }
+        doWork();
+    }, []);
 
-export default function Home() {
-  const octokit = new Octokit({
-    auth: process.env.API_KEY,
-  });
-
-
-  const [repoList, setRepoList] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getUserRepos(username) {
-      try {
-        const resp = await octokit.request("GET /users/" + username + "/repos");
-        setRepoList(resp.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
+    if (isLoading) {
+        return <div>loading...</div>
     }
 
-    getUserRepos("ramonmeza");
-  }, []);
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
 
-  if (loading) {
+    const repoCards = repoList.map(repo => {
+        return repo.description ? <RepoCard key={repo.id} name={repo.name} html_url={repo.html_url} description={repo.description} /> : null;
+    });
+
     return (
-      <div className="min-h-screen bg-gray-100">
-        <div className="flex h-screen">
-          <div className="m-auto">
-            <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 20 20"></svg>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        <div className="container mx-auto">
+            <div className="text-xl">
+                Home
+            </div>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
+                {repoCards}
+            </div>
+        </div>);
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-100">
-        <div className="flex h-screen">
-          <div className="m-auto items-center">
-            <div className="text-red-500 text-xl font-medium text-black">Error</div>
-            <div className="mt-2 text-gray-500">{error.message}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <main>
-        <section>
-          <div>
-            <div class="text-xl font-medium text-black">Programming Projects</div>
-            <RepoList className="m" repos={repoList} />
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-}
+};
