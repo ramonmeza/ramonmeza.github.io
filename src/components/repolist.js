@@ -9,7 +9,7 @@ function RepoList({ repos }) {
     );
 
     return (
-        <div class="min-h-screen bg-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {r}
         </div>
     );

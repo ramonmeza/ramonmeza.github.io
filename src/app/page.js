@@ -33,23 +33,39 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div>
-        Loading...
+      <div className="min-h-screen bg-gray-100">
+        <div className="flex h-screen">
+          <div className="m-auto">
+            <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 20 20"></svg>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div>
-        Error: {error.message}
+      <div className="min-h-screen bg-gray-100">
+        <div className="flex h-screen">
+          <div className="m-auto items-center">
+            <div className="text-red-500 text-xl font-medium text-black">Error</div>
+            <div className="mt-2 text-gray-500">{error.message}</div>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <main>
-      <RepoList repos={repoList} />
-    </main>
+    <div className="min-h-screen bg-gray-100">
+      <main>
+        <section>
+          <div>
+            <div class="text-xl font-medium text-black">Programming Projects</div>
+            <RepoList className="m" repos={repoList} />
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
