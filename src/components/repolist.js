@@ -8,7 +8,11 @@ function RepoList({ repos }) {
         <Repo key={repo.id} url={repo.html_url} name={repo.name} description={repo.description} />
     );
 
-    return (r);
+    return (
+        <div class="min-h-screen bg-gray-100">
+            {r}
+        </div>
+    );
 }
 
 export default RepoList;

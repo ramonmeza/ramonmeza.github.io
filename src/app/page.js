@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Octokit } from "octokit";
 
-import Repo from "@/components/repo";
 import RepoList from "@/components/repolist";
 
 

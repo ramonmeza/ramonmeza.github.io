@@ -1,9 +1,11 @@
 function Repo({ url, name, description }) {
     return (
-        <div class="repo">
-            <h2><a href={url}>{name}</a></h2>
-            <p>{description}</p>
-        </div>
+        <a href={url}>
+            <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+                <div class="text-xl font-medium text-black">{name}</div>
+                <p class="text-gray-500">{description}</p>
+            </div>
+        </a>
     );
 }
 
