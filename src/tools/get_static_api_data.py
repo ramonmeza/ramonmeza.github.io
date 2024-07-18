@@ -11,12 +11,12 @@ def get_all_repos_by_username(username: str):
     ).json()
 
 
-def get_all_repo_language_stats_by_username(username: str, repos: dict = None):
+def get_all_repo_language_data_by_username(username: str, repos: dict = None):
     # get repo data via api if its not provided
     if repos is None:
         repos = get_all_repos_by_username(username)
 
-    print("Gathering language stats...")
+    print("Gathering language data...")
     combined_language_data = {}
     for i in range(len(repos)):
         repo = repos[i]
@@ -45,15 +45,15 @@ def get_all_repo_language_stats_by_username(username: str, repos: dict = None):
                 combined_language_data[key] = val
 
     # format into the correct format for charts.js
-    stats = {
-        "dataset": [
+    data = {
+        "datasets": [
             {"label": "lines of code", "data": list(combined_language_data.values())}
         ],
         "labels": list(combined_language_data.keys()),
     }
 
     print("complete")
-    return stats
+    return data
 
 
 if __name__ == "__main__":
@@ -64,6 +64,6 @@ if __name__ == "__main__":
     with open("../../public/data/repos.json", "r") as fp:
         repos = json.load(fp)
 
-    with open("../../public/data/language_stats.json", "w") as fp:
-        language_stats = get_all_repo_language_stats_by_username("ramonmeza", repos)
-        json.dump(language_stats, fp, indent=4)
+    with open("../../public/data/repo_language_data.json", "w") as fp:
+        repo_language_data = get_all_repo_language_data_by_username("ramonmeza", repos)
+        json.dump(repo_language_data, fp, indent=4)
