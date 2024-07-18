@@ -8,11 +8,11 @@ Chart.register(Colors, Legend, ArcElement, Tooltip);
 
 // component code
 export default function RepoStats({ repoLanguageData }) {
-    const most_used_language_linecount = Math.max(...repoLanguageData.datasets[0].data);
-    const most_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(most_used_language_linecount)];
+    const most_used_language_bytecount = Math.max(...repoLanguageData.datasets[0].data);
+    const most_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(most_used_language_bytecount)];
 
-    const least_used_language_linecount = Math.min(...repoLanguageData.datasets[0].data);
-    const least_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(least_used_language_linecount)];
+    const least_used_language_bytecount = Math.min(...repoLanguageData.datasets[0].data);
+    const least_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(least_used_language_bytecount)];
 
     return (
         <div>
@@ -32,14 +32,14 @@ export default function RepoStats({ repoLanguageData }) {
                     <div className="space-y-2">
                         <h1 className="text-center text-2xl md:text-4xl font-medium text-gray-900">Most used lanuage: {most_used_language}</h1>
                         <p className="text-center italic text-md md:text-xl text-gray-700">
-                            In my repositories there&apos;s about <strong>{most_used_language_linecount}</strong> lines of {most_used_language} code! That&apos;s a lot 😎
+                            In my repositories there&apos;s about <strong>{most_used_language_bytecount}</strong> bytes of {most_used_language} code! 😎🤙
                         </p>
                     </div>
 
                     <div className="space-y-2">
                         <h1 className="text-center text-2xl md:text-4xl font-medium text-gray-900">Least used lanuage: {least_used_language}</h1>
                         <p className="text-center italic text-md md:text-xl text-gray-700">
-                            There&apos;s only about <strong>{least_used_language_linecount}</strong> lines of {least_used_language} code... I don&apos; really wanna talk about it 😭
+                            There&apos;s only about <strong>{least_used_language_bytecount}</strong> bytes of {least_used_language} code...🤏😭
                         </p>
                     </div>
                 </div>

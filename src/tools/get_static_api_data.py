@@ -47,7 +47,7 @@ def get_all_repo_language_data_by_username(username: str, repos: dict = None):
     # format into the correct format for charts.js
     data = {
         "datasets": [
-            {"label": "lines of code", "data": list(combined_language_data.values())}
+            {"label": "bytes of code", "data": list(combined_language_data.values())}
         ],
         "labels": list(combined_language_data.keys()),
     }
