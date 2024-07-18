@@ -7,19 +7,41 @@ import { ArcElement, Chart, Colors, Legend, Tooltip } from "chart.js";
 Chart.register(Colors, Legend, ArcElement, Tooltip);
 
 // component code
-export default function RepoStats({ repoLanguageData }) {
-    const most_used_language_bytecount = Math.max(...repoLanguageData.datasets[0].data);
-    const most_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(most_used_language_bytecount)];
+export default function RepoStats({ repos, bytesOfCode }) {
+    const mostBytes = Math.max(...bytesOfCode.datasets[0].data);
+    const mostBytesLanguage = bytesOfCode.labels[bytesOfCode.datasets[0].data.indexOf(mostBytes)];
 
-    const least_used_language_bytecount = Math.min(...repoLanguageData.datasets[0].data);
-    const least_used_language = repoLanguageData.labels[repoLanguageData.datasets[0].data.indexOf(least_used_language_bytecount)];
+    const leastBytes = Math.min(...bytesOfCode.datasets[0].data);
+    const leastBytesLanguage = bytesOfCode.labels[bytesOfCode.datasets[0].data.indexOf(leastBytes)];
+
+    // find most popular language of all repos
+    let langMap = new Map();
+    for (const i in repos) {
+        const item = repos[i];
+        const keys = Array.from(langMap.keys());
+
+        if (keys.indexOf(item.language) > -1) {
+            // increment value
+            langMap.set(item.language, langMap.get(item.language) + 1);
+        } else {
+            // initial value
+            langMap.set(item.language, 1);
+        }
+    }
+
+    const keys = Array.from(langMap.keys());
+    const values = Array.from(langMap.values());
+    const mostUsedLanguageRepoCount = Math.max(...values);
+    const mostUsedLanguage = keys.at(values.indexOf(mostUsedLanguageRepoCount));
+    console.log(repos);
+    const mostUsedLanguagePercentage = Math.round((mostUsedLanguageRepoCount / repos.length) * 100.0);
 
     return (
         <div>
             <div className="py-4 text-3xl font-medium text-gray-700">Statistics</div>
             <div className="flex flex-col -m-6 md:m-0 lg:flex-row md:items-start md:gap-4 md:items-center md:justify-center">
                 <div className="mx-auto md:mx-0 size-96 md:-m-10 mb-2">
-                    <Doughnut data={repoLanguageData} options={{
+                    <Doughnut data={bytesOfCode} options={{
                         plugins: {
                             legend: {
                                 position: "left"
@@ -28,18 +50,22 @@ export default function RepoStats({ repoLanguageData }) {
                     }} />
                 </div>
 
-                <div className="flex flex-col mb-4 items-start gap-4 md:gap-8 lg:gap-16 items-center justify-center">
+                <div className="flex flex-col mb-4 items-start gap-4 md:gap-8 lg:gap-16 items-center justify-center max-w-md p-6 md:max-w-3xl">
                     <div className="space-y-2">
-                        <h1 className="text-center text-2xl md:text-4xl font-medium text-gray-900">Most used lanuage: {most_used_language}</h1>
                         <p className="text-center italic text-md md:text-xl text-gray-700">
-                            In my repositories there&apos;s about <strong>{most_used_language_bytecount}</strong> bytes of {most_used_language} code! 😎🤙
+                            I start a majority of my projects using <strong>{mostUsedLanguage}</strong>, with nearly <strong>{mostUsedLanguagePercentage}%</strong> of my repositories consisting mainly of the technology! 😮
                         </p>
                     </div>
 
                     <div className="space-y-2">
-                        <h1 className="text-center text-2xl md:text-4xl font-medium text-gray-900">Least used lanuage: {least_used_language}</h1>
                         <p className="text-center italic text-md md:text-xl text-gray-700">
-                            There&apos;s only about <strong>{least_used_language_bytecount}</strong> bytes of {least_used_language} code...🤏😭
+                            These repositories contain about <strong>{mostBytes}</strong> bytes of {mostBytesLanguage} code! 😎🤙
+                        </p>
+                    </div>
+
+                    <div className="space-y-2">
+                        <p className="text-center italic text-md md:text-xl text-gray-700">
+                            Meanwhile, I&apos;ve only contributed <strong>{leastBytes}</strong> bytes of {leastBytesLanguage} code... 🤏😭
                         </p>
                     </div>
                 </div>

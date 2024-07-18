@@ -17,7 +17,7 @@ export default function Page() {
     const [error, setError] = useState(null);
 
     const [repos, setRepos] = useState(null);
-    const [repoLanguageData, setRepoLanguageData] = useState(null);
+    const [bytesOfCode, setBytesOfCode] = useState(null);
 
     useEffect(() => {
         async function load() {
@@ -26,11 +26,12 @@ export default function Page() {
                 let repoData = await fetch('data/repos.json').then(r => r.json());
                 setRepos(repoData);
 
-                let repoLanguageData = await fetch('data/repo_language_data.json').then(r => r.json());
-                setRepoLanguageData(repoLanguageData);
+                let bytesOfCodeData = await fetch('data/bytes_of_code.json').then(r => r.json());
+                setBytesOfCode(bytesOfCodeData);
                 setIsLoading(false);
             } catch (error) {
                 setError(error);
+                console.log(error);
                 setIsLoading(false);
             }
         }
@@ -58,7 +59,7 @@ export default function Page() {
             </header>
             <main>
                 <div className="container mx-auto pt-4 px-4 md:px-0">
-                    <RepoStats repoLanguageData={repoLanguageData} />
+                    <RepoStats bytesOfCode={bytesOfCode} repos={repos} />
                     <Repositories repos={repos} />
                 </div>
             </main>

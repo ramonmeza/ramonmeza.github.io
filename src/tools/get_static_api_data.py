@@ -11,13 +11,9 @@ def get_all_repos_by_username(username: str):
     ).json()
 
 
-def get_all_repo_language_data_by_username(username: str, repos: dict = None):
-    # get repo data via api if its not provided
-    if repos is None:
-        repos = get_all_repos_by_username(username)
-
+def get_bytes_of_code(username: str, repos: dict):
     print("Gathering language data...")
-    combined_language_data = {}
+    bytecounts: dict = {}
     for i in range(len(repos)):
         repo = repos[i]
 
@@ -35,21 +31,19 @@ def get_all_repo_language_data_by_username(username: str, repos: dict = None):
             continue
         print()
 
-        data: dict = resp.json()
+        json: dict = resp.json()
 
         # combine language data
-        for key, val in data.items():
-            if key in combined_language_data.keys():
-                combined_language_data[key] += val
+        for key, val in json.items():
+            if key in bytecounts.keys():
+                bytecounts[key] += val
             else:
-                combined_language_data[key] = val
+                bytecounts[key] = val
 
     # format into the correct format for charts.js
-    data = {
-        "datasets": [
-            {"label": "bytes of code", "data": list(combined_language_data.values())}
-        ],
-        "labels": list(combined_language_data.keys()),
+    data: dict = {
+        "datasets": [{"label": "bytes of code", "data": list(bytecounts.values())}],
+        "labels": list(bytecounts.keys()),
     }
 
     print("complete")
@@ -57,13 +51,16 @@ def get_all_repo_language_data_by_username(username: str, repos: dict = None):
 
 
 if __name__ == "__main__":
-    with open("../../public/data/repos.json", "w") as fp:
-        repos = get_all_repos_by_username("ramonmeza")
-        json.dump(repos, fp, indent=4)
+    # uncomment to create repos.json
+    # with open("../../public/data/repos.json", "w") as fp:
+    #     repos = get_all_repos_by_username("ramonmeza")
+    #     json.dump(repos, fp, indent=4)
 
+    # uncomment to load repo data
     with open("../../public/data/repos.json", "r") as fp:
         repos = json.load(fp)
 
-    with open("../../public/data/repo_language_data.json", "w") as fp:
-        repo_language_data = get_all_repo_language_data_by_username("ramonmeza", repos)
-        json.dump(repo_language_data, fp, indent=4)
+    # uncomment to create bytes_of_code.json
+    # with open("../../public/data/bytes_of_code.json", "w") as fp:
+    #     bytes_of_code = get_bytes_of_code("ramonmeza", repos)
+    #     json.dump(bytes_of_code, fp, indent=4)

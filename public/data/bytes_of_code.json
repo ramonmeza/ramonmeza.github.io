@@ -1,7 +1,7 @@
 {
     "datasets": [
         {
-            "label": "lines of code",
+            "label": "bytes of code",
             "data": [
                 13147,
                 124454,
