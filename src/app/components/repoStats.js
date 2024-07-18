@@ -33,41 +33,37 @@ export default function RepoStats({ repos, bytesOfCode }) {
     const values = Array.from(langMap.values());
     const mostUsedLanguageRepoCount = Math.max(...values);
     const mostUsedLanguage = keys.at(values.indexOf(mostUsedLanguageRepoCount));
-    console.log(repos);
     const mostUsedLanguagePercentage = Math.round((mostUsedLanguageRepoCount / repos.length) * 100.0);
 
     return (
-        <div>
-            <div className="py-4 text-3xl font-medium text-gray-700">Statistics</div>
-            <div className="flex flex-col -m-6 md:m-0 lg:flex-row md:items-start md:gap-4 md:items-center md:justify-center">
-                <div className="mx-auto md:mx-0 size-96 md:-m-10 mb-2">
-                    <Doughnut data={bytesOfCode} options={{
-                        plugins: {
-                            legend: {
-                                position: "left"
-                            }
+        <div className="flex flex-col -m-6 md:m-0 lg:flex-row md:items-start md:gap-4 md:items-center md:justify-center">
+            <div className="mx-auto md:mx-0 size-96 md:-m-10 mb-2">
+                <Doughnut data={bytesOfCode} options={{
+                    plugins: {
+                        legend: {
+                            position: "left"
                         }
-                    }} />
+                    }
+                }} />
+            </div>
+
+            <div className="flex flex-col mb-4 items-start gap-4 md:gap-8 lg:gap-16 items-center justify-center max-w-md p-6 md:max-w-3xl">
+                <div className="space-y-2">
+                    <p className="text-center italic text-md md:text-xl text-gray-700">
+                        I start a majority of my projects using <strong>{mostUsedLanguage}</strong>, with nearly <strong>{mostUsedLanguagePercentage}%</strong> of my repositories consisting mainly of the technology! 😮
+                    </p>
                 </div>
 
-                <div className="flex flex-col mb-4 items-start gap-4 md:gap-8 lg:gap-16 items-center justify-center max-w-md p-6 md:max-w-3xl">
-                    <div className="space-y-2">
-                        <p className="text-center italic text-md md:text-xl text-gray-700">
-                            I start a majority of my projects using <strong>{mostUsedLanguage}</strong>, with nearly <strong>{mostUsedLanguagePercentage}%</strong> of my repositories consisting mainly of the technology! 😮
-                        </p>
-                    </div>
+                <div className="space-y-2">
+                    <p className="text-center italic text-md md:text-xl text-gray-700">
+                        These repositories contain about <strong>{mostBytes}</strong> bytes of {mostBytesLanguage} code! 😎🤙
+                    </p>
+                </div>
 
-                    <div className="space-y-2">
-                        <p className="text-center italic text-md md:text-xl text-gray-700">
-                            These repositories contain about <strong>{mostBytes}</strong> bytes of {mostBytesLanguage} code! 😎🤙
-                        </p>
-                    </div>
-
-                    <div className="space-y-2">
-                        <p className="text-center italic text-md md:text-xl text-gray-700">
-                            Meanwhile, I&apos;ve only contributed <strong>{leastBytes}</strong> bytes of {leastBytesLanguage} code... 🤏😭
-                        </p>
-                    </div>
+                <div className="space-y-2">
+                    <p className="text-center italic text-md md:text-xl text-gray-700">
+                        Meanwhile, I&apos;ve only contributed <strong>{leastBytes}</strong> bytes of {leastBytesLanguage} code... 🤏😭
+                    </p>
                 </div>
             </div>
         </div>

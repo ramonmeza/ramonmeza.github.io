@@ -64,3 +64,5 @@ if __name__ == "__main__":
     # with open("../../public/data/bytes_of_code.json", "w") as fp:
     #     bytes_of_code = get_bytes_of_code("ramonmeza", repos)
     #     json.dump(bytes_of_code, fp, indent=4)
+
+    # download this file https://www.artstation.com/users/artbyczr/projects.json

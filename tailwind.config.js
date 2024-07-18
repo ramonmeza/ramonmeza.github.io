@@ -8,6 +8,9 @@ module.exports = {
   darkMode: 'selector',
   theme: {
     extend: {
+      transitionProperty: {
+        'height': 'height',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
