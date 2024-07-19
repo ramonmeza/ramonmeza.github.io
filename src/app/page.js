@@ -9,9 +9,11 @@ import Collapsible from "./components/collapsible";
 import Error from "./components/error";
 import Footer from "./components/footer";
 import Grid from "./components/grid";
+import ImageCarousel from "./components/imageCarousel";
 import Loading from "./components/loading";
 import RepoCard from "./components/repoCard";
 import RepoStats from "./components/repoStats";
+
 
 // page
 export default function Page() {
@@ -67,6 +69,20 @@ export default function Page() {
         );
     });
 
+    // eventually replace this with calls to a dynamodb
+    // need to create a ui to upload images first...
+    const images = [{
+        path: 'img/avatar.jpg',
+        description: 'A pic of me',
+        width: 1024,
+        height: 1024,
+    }, {
+        path: 'img/IMG_2440.JPG',
+        description: 'Pretty cool place',
+        width: 2592,
+        height: 1728,
+    }];
+
     return (
         <>
             <div className="bg-gray-100">
@@ -77,22 +93,25 @@ export default function Page() {
                 </header>
                 <main>
                     <div className="container mx-auto pt-4 px-4 md:px-0">
-                        <Collapsible title="Song Releases">
-                            <div className="flex flex-col space-y-4">
-                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848690021&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                                <iframe width="100%" height="450" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1826944014&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1827043041&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                            </div>
+                        <Collapsible open title="Photography">
+                            <ImageCarousel images={images} delay={5000} />
                         </Collapsible>
                         <Collapsible open title="Artwork">
                             <Grid>
                                 {artworkCards}
                             </Grid>
                         </Collapsible>
-                        <Collapsible title="Repository Statistics">
+                        <Collapsible open title="Song Releases">
+                            <div className="flex flex-col space-y-4">
+                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848690021&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <iframe width="100%" height="450" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1826944014&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1827043041&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                            </div>
+                        </Collapsible>
+                        <Collapsible open title="Repository Statistics">
                             <RepoStats bytesOfCode={bytesOfCode} repos={repos} />
                         </Collapsible>
-                        <Collapsible title="All Repositories">
+                        <Collapsible open title="All Repositories">
                             <Grid>
                                 {repoCards}
                             </Grid>
