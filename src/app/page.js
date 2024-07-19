@@ -3,15 +3,15 @@
 import React, { useEffect, useState } from "react";
 
 // custom components
+import ArtworkCard from "./components/artworkCard";
 import Banner from "./components/banner";
 import Collapsible from "./components/collapsible";
 import Error from "./components/error";
 import Footer from "./components/footer";
+import Grid from "./components/grid";
 import Loading from "./components/loading";
-import Repositories from "./components/respositories";
+import RepoCard from "./components/repoCard";
 import RepoStats from "./components/repoStats";
-
-
 
 // page
 export default function Page() {
@@ -57,21 +57,13 @@ export default function Page() {
 
     const artworkCards = artwork.map((art) => {
         return (
-            <div className="relative" key={art.id}>
-                <a href={art.permalink} target="_blank">
-                    <img src={art.cover.thumb_url} alt="" className="block w-full h-auto" />
-                    <div className="absolute top-0 bottom-0 left-0 right-0 h-full w-full opacity-0 hover:opacity-100 transition duration-500 ease-in-out bg-gradient-to-t from-gray-900/50 to-gray-900/25 overflow-scroll">
-                        <div className="p-4 text-white">
-                            <div className="text-xl mb-4">
-                                {art.title}
-                            </div>
-                            <div>
-                                {art.description}
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <ArtworkCard key={art.id} href={art.permalink} imgSrc={art.cover.thumb_url} title={art.title} description={art.description} />
+        );
+    });
+
+    const repoCards = repos.map((repo) => {
+        return (
+            <RepoCard key={repo.id} href={repo.html_url} title={repo.name} description={repo.description} />
         );
     });
 
@@ -93,15 +85,17 @@ export default function Page() {
                             </div>
                         </Collapsible>
                         <Collapsible open title="Artwork">
-                            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            <Grid>
                                 {artworkCards}
-                            </div>
+                            </Grid>
                         </Collapsible>
                         <Collapsible title="Repository Statistics">
                             <RepoStats bytesOfCode={bytesOfCode} repos={repos} />
                         </Collapsible>
                         <Collapsible title="All Repositories">
-                            <Repositories repos={repos} />
+                            <Grid>
+                                {repoCards}
+                            </Grid>
                         </Collapsible>
                     </div>
                 </main>
