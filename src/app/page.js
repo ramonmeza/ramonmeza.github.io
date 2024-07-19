@@ -34,7 +34,6 @@ export default function Page() {
 
                 let artworkData = await fetch('data/artwork.json').then(r => r.json());
                 setArtWork(artworkData.data)
-                console.log(artworkData.data)
                 setIsLoading(false);
             } catch (error) {
                 setError(error);
@@ -58,7 +57,7 @@ export default function Page() {
 
     const artworkCards = artwork.map((art) => {
         return (
-            <div class="relative" key={art.id}>
+            <div className="relative" key={art.id}>
                 <a href={art.permalink} target="_blank">
                     <img src={art.cover.thumb_url} alt="" className="block w-full h-auto" />
                     <div className="absolute top-0 bottom-0 left-0 right-0 h-full w-full opacity-0 hover:opacity-100 transition duration-500 ease-in-out bg-gradient-to-t from-gray-900/50 to-gray-900/25 overflow-scroll">
@@ -88,9 +87,9 @@ export default function Page() {
                     <div className="container mx-auto pt-4 px-4 md:px-0">
                         <Collapsible title="Song Releases">
                             <div className="flex flex-col space-y-4">
-                                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848690021&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                                <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1826944014&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1827043041&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848690021&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <iframe width="100%" height="450" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1826944014&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1827043041&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
                             </div>
                         </Collapsible>
                         <Collapsible open title="Artwork">

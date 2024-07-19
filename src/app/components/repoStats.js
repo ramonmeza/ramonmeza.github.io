@@ -35,6 +35,9 @@ export default function RepoStats({ repos, bytesOfCode }) {
     const mostUsedLanguage = keys.at(values.indexOf(mostUsedLanguageRepoCount));
     const mostUsedLanguagePercentage = Math.round((mostUsedLanguageRepoCount / repos.length) * 100.0);
 
+    const mostBytesFormatted = mostBytes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    const leastBytesFormatted = leastBytes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
     return (
         <div className="flex flex-col -m-6 md:m-0 lg:flex-row md:items-start md:gap-4 md:items-center md:justify-center">
             <div className="mx-auto md:mx-0 size-96 md:-m-10 mb-2">
@@ -56,13 +59,13 @@ export default function RepoStats({ repos, bytesOfCode }) {
 
                 <div className="space-y-2">
                     <p className="text-center italic text-md md:text-xl text-gray-700">
-                        These repositories contain about <strong>{mostBytes}</strong> bytes of {mostBytesLanguage} code! 😎🤙
+                        These repositories contain about <strong>{mostBytesFormatted}</strong> bytes of {mostBytesLanguage} code! 😎🤙
                     </p>
                 </div>
 
                 <div className="space-y-2">
                     <p className="text-center italic text-md md:text-xl text-gray-700">
-                        Meanwhile, I&apos;ve only contributed <strong>{leastBytes}</strong> bytes of {leastBytesLanguage} code... 🤏😭
+                        Meanwhile, I&apos;ve only contributed <strong>{leastBytesFormatted}</strong> bytes of {leastBytesLanguage} code... 🤏😭
                     </p>
                 </div>
             </div>
