@@ -22,15 +22,13 @@ export default function ImageCarousel({ images, delay }) {
                 ),
             delay
         );
-        console.log(delay);
-        console.log(currentImageIndex);
 
         return () => { };
     }, [currentImageIndex]);
 
     const imageElems = images.map((image, index) => {
         return (
-            <Image key={index} src={image.path} alt={image.description} width={image.width} height={image.height} className="w-full h-full inline-block rounded-md object-cover" />
+            <Image key={index} src={image.path} alt={image.description} width={image.width} height={image.height} className="h-96 w-96 md:h-128 md:w-128 inline-block rounded-md object-cover" />
         );
     });
 
@@ -44,10 +42,11 @@ export default function ImageCarousel({ images, delay }) {
     });
 
     return (
-        <div className="mx-auto overflow-hidden max-w-sm sm:max-w-lg md:max-w-3xl">
+        <div className="mx-auto w-96 md:w-128">
             <div className="whitespace-nowrap duration-1000" style={{ transform: `translate3d(${-currentImageIndex * 100}%, 0, 0)` }}>
                 {imageElems}
             </div>
+
             <div className="text-center">
                 {imageDots}
             </div>

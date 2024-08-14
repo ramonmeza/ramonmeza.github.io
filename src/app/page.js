@@ -20,6 +20,7 @@ export default function Page() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [photography, setPhotography] = useState(null);
     const [repos, setRepos] = useState(null);
     const [bytesOfCode, setBytesOfCode] = useState(null);
     const [artwork, setArtWork] = useState(null);
@@ -27,7 +28,12 @@ export default function Page() {
     useEffect(() => {
         async function load() {
             try {
-                // load data
+                // eventually replace this with calls to a dynamodb
+                // maybe even make a github api call to upload to photography folder
+                // need to create a ui to upload images first...            
+                let photographyData = await fetch('data/photography.json').then(r => r.json());
+                setPhotography(photographyData);
+
                 let repoData = await fetch('data/repos.json').then(r => r.json());
                 setRepos(repoData);
 
@@ -52,7 +58,7 @@ export default function Page() {
     }
 
     if (error) {
-        return (
+        return ( 
             <Error error={error} />
         )
     }
@@ -69,20 +75,6 @@ export default function Page() {
         );
     });
 
-    // eventually replace this with calls to a dynamodb
-    // need to create a ui to upload images first...
-    const images = [{
-        path: 'img/avatar.jpg',
-        description: 'A pic of me',
-        width: 1024,
-        height: 1024,
-    }, {
-        path: 'img/IMG_2440.JPG',
-        description: 'Pretty cool place',
-        width: 2592,
-        height: 1728,
-    }];
-
     return (
         <>
             <div className="bg-gray-100">
@@ -93,22 +85,22 @@ export default function Page() {
                 </header>
                 <main>
                     <div className="container mx-auto pt-4 px-4 md:px-0">
-                        <Collapsible open title="Photography">
-                            <ImageCarousel images={images} delay={5000} />
+                        <Collapsible title="Photography">
+                            <ImageCarousel images={photography} delay={5000} />
                         </Collapsible>
-                        <Collapsible open title="Artwork">
+                        <Collapsible title="Artwork">
                             <Grid>
                                 {artworkCards}
                             </Grid>
                         </Collapsible>
-                        <Collapsible open title="Song Releases">
+                        <Collapsible title="Song Releases">
                             <div className="flex flex-col space-y-4">
                                 <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1848690021&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
                                 <iframe width="100%" height="450" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1826944014&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
                                 <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1827043041&color=%23363634&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
                             </div>
                         </Collapsible>
-                        <Collapsible open title="Repository Statistics">
+                        <Collapsible title="Repository Statistics">
                             <RepoStats bytesOfCode={bytesOfCode} repos={repos} />
                         </Collapsible>
                         <Collapsible open title="All Repositories">

@@ -8,6 +8,9 @@ module.exports = {
   darkMode: 'selector',
   theme: {
     extend: {
+      spacing: {
+        '128': '40rem',
+      },
       transitionProperty: {
         'height': 'height',
       },
