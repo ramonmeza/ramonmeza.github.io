@@ -3,9 +3,6 @@
         "id": 0,
         "title": "My first blog post!",
         "content": "This is the vert first post for the blog!",
-        "tags": [
-            "programming",
-            "life"
-        ]
+        "tags": ["programming", "life"]
     }
 ]
